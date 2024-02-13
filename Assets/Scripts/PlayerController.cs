@@ -23,21 +23,27 @@ public class PlayerController : MonoBehaviour
         _moveVector = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            _moveVector = transform.forward;
+            _moveVector += transform.forward;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            _moveVector = -transform.forward;
+            _moveVector -= transform.forward;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _moveVector = transform.right;
+            _moveVector += transform.right;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _moveVector = -transform.right;
+            _moveVector -= transform.right;
         }
 
+        ///
+        if (_moveVector != transform.forward && _moveVector != -transform.forward && _moveVector != transform.right && _moveVector != -transform.right)
+        {
+            _moveVector /= Mathf.Sqrt(2);
+        }
+        ///
         //jump
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
