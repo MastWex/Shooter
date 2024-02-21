@@ -1,18 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Animations : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator _animator;
+    public NavMeshAgent _navMeshAgent;
+
+
+
+
+/// <summary>
+/// ///////////////////////////////
+/// </summary>
     void Start()
     {
-        
+        InitComponentLinks();
     }
 
-    // Update is called once per frame
+    private void InitComponentLinks()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+
+/// <summary>
+/// //////////////////////////////////
+/// </summary>
     void Update()
     {
-        
+        if (_navMeshAgent.velocity != Vector3.zero)
+        {
+            _animator.SetTrigger("ToRun");
+        }
+        else
+        {
+            _animator.SetTrigger("ToIdle");
+        }
     }
 }
