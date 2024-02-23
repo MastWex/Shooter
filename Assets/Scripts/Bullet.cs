@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float Speed;
     public float lifetime;
+    public float damage = 10f;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        DamageEnemy(collision);
         DestroyBullet();
     }
 
@@ -29,5 +31,15 @@ public class Bullet : MonoBehaviour
     private void DestroyBullet()
     {
         Destroy(gameObject);
+    }
+    
+    private void DamageEnemy(Collision collision)
+    {
+        var _enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+        if (_enemyHealth != null)
+        {
+            _enemyHealth.DealDamage(damage);
+        }
+
     }
 }
