@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
 
     public PlayerController Player;
 
+    public PlayerHealth PlayerHealth;
+
     public float damage = 30;
 
     private Transform _targetPoint;
@@ -64,8 +66,10 @@ public class EnemyAI : MonoBehaviour
 
     private void NoticePlayerUpdate()
     {
-        var direction = Player.transform.position - transform.position;
         _isPlayerNoticed = false;
+        if (!PlayerHealth.IsAlive()) return;
+        var direction = Player.transform.position - transform.position;
+
         if (Vector3.Angle(transform.forward, direction) < ViewAngle)
         {
             RaycastHit hit;

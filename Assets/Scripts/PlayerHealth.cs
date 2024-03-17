@@ -26,6 +26,13 @@ public class PlayerHealth : MonoBehaviour
         DrawHealthBar();
     }
 
+    public void AddHealth(float amount)
+    {
+        Value += amount;
+        Value = Mathf.Clamp(Value, 0, _maxValue);
+        DrawHealthBar();
+    }
+
     private void PlayerIsDead()
     {
         gameplayUI.SetActive(false);
@@ -33,10 +40,17 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerController>().enabled = false;
         GetComponent<CameraRotation>().enabled = false;
         GetComponent<PlayerShooting>().enabled = false;
+        GetComponent<GrenadeCaster>().enabled = false;
+        gameOverScreen.GetComponent<Animator>().SetTrigger("GameOver");
     }
 
     private void DrawHealthBar()
     {
         ValueRectTransform.anchorMax = new Vector2(Value / _maxValue, 1);
+    }
+
+    public bool IsAlive()
+    {
+        return Value > 0;
     }
 }
