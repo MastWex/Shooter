@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    public float damage = 10;
+
     public Bullet BulletPrefab;
     public Transform MuzzleTransform;
     
@@ -17,7 +19,8 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(BulletPrefab, MuzzleTransform.position, MuzzleTransform.rotation);
+            var bullet = Instantiate(BulletPrefab, MuzzleTransform.position, MuzzleTransform.rotation);
+            bullet.damage = damage;
         }
     }
 }
